@@ -1,0 +1,192 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Mukta', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Rozha One', 'Mukta', serif;
+
+  --color-night: #120A2A;
+  --color-night-2: #1B1140;
+  --color-night-3: #2B1A5E;
+  --color-saffron: #FF3D7F;
+  --color-saffron-dark: #D81B66;
+  --color-amber: #FF9F1C;
+  --color-gold: #FFC857;
+  --color-cream: #FBF7FF;
+  --color-sand: #F1EAFB;
+  --color-ink: #1B1035;
+  --color-muted: #6A6384;
+  --color-leaf: #17a65a;
+  --color-rose: #E5484D;
+
+  --animate-marquee: marquee 110s linear infinite;
+  --animate-dash: dash 1.2s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-twinkle: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes dash {
+  to {
+    background-position-x: -80px;
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes clock-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes scan {
+  0%,
+  100% {
+    top: 14px;
+  }
+  50% {
+    top: calc(100% - 16px);
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@utility btn {
+  @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl px-6 py-3.5 font-semibold transition-[transform,box-shadow,background-color] duration-300 select-none disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  body {
+    @apply bg-cream font-sans text-ink antialiased;
+    overflow-x: hidden;
+  }
+  ::selection {
+    @apply bg-saffron text-white;
+  }
+  select {
+    appearance: none;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-saffron);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply w-full px-4 sm:px-6 lg:px-12 2xl:px-20;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-saffron/25 bg-saffron/10 px-3.5 py-1 text-sm font-bold text-saffron;
+  }
+  .h-display {
+    @apply font-display leading-[1.08] tracking-tight;
+  }
+  .btn-primary {
+    @apply btn bg-gradient-to-r from-saffron to-amber text-white shadow-[0_12px_30px_-10px_rgba(255,61,127,0.7)] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-12px_rgba(255,61,127,0.85)] active:translate-y-0;
+  }
+  .btn-dark {
+    @apply btn bg-night text-white hover:-translate-y-0.5 hover:bg-night-3;
+  }
+  .btn-ghost {
+    @apply btn border border-ink/10 bg-white text-ink hover:-translate-y-0.5 hover:border-saffron/40;
+  }
+  .field-label {
+    @apply mb-1.5 flex items-center gap-1.5 text-sm font-semibold text-muted;
+  }
+  .field {
+    @apply w-full rounded-2xl border border-ink/10 bg-white px-4 py-3.5 text-base font-semibold text-ink transition outline-none placeholder:font-normal placeholder:text-muted/60 focus:border-saffron focus:ring-4 focus:ring-saffron/15;
+  }
+  .field-error {
+    @apply border-rose focus:border-rose focus:ring-rose/15;
+  }
+  .card {
+    @apply rounded-[28px] border border-ink/[0.06] bg-white shadow-[0_30px_60px_-35px_rgba(27,16,53,0.35)];
+  }
+  .glass-dark {
+    @apply border border-white/10 bg-white/[0.06] backdrop-blur-xl;
+  }
+  .road {
+    background-image: linear-gradient(90deg, var(--color-amber) 0 40px, transparent 40px 80px);
+    background-size: 80px 4px;
+    background-repeat: repeat-x;
+  }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
+
+/* Printing: only the element marked .print-area is printed. */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  .print-area,
+  .print-area * {
+    visibility: visible !important;
+  }
+  .print-area {
+    position: absolute !important;
+    inset: 0 auto auto 0 !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  @page {
+    margin: 12mm;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
